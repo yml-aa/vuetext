@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<!--    1、导入一个vue包-->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<!--   2.创建一个要控制的区域   -->
+<div id="app">
+    <input type="button" value="浪起来" @click="lang">
+    <input type="button" value="低调" @click="stop">
+    <h4>{{mag}}</h4>
+</div>
+<script>
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            mag:'猥琐发育，别浪~~~!',
+            intervalID: null
+        },
+        methods: {
+            lang(){
+                if(this.intervalID !=null) return
+                this.intervalID = setInterval( () => {
+                    //获取到头的第一个字符
+                    var start = this.mag.substring(0,1)
+                    //获取到头的最后一个字符
+                    var end = this.mag.substring(1)
+                    //重新拼接得到新的字符串 ，并赋值给this.mag
+                    this.mag = end + start
+                },400)
+            },
+            stop(){
+                clearInterval(this.intervalID)
+                //每当清除了定时器之后，就需要把intervalID赋值为null
+                this.intervalID = null
+            }
+        }
+    })
+</script>
+</body>
+</html>
